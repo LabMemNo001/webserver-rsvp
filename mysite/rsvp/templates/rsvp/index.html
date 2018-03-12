@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Question Detail</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+  <ul>
+    {% if guest %}
+    <h1>Answer Questions for Your Guest</h1>
+    {% else %}
+    <h1>Answer Questions</h1>    
+    {% endif %}
+    <h2>Question to Answer:</h2>
+    {% if todo_list %}
+    {% for question in todo_list %}
+    {% if question.multi is True %}
+    {% if question.expired is False %}
+    <li><a href="/rsvp/{{ event.id }}/{{ question.id }}/{{ guest_val }}/question_detail">{{ question.name }}</a></li>
+    {% endif %}
+    {% else %}
+    {% if question.expired is False %}
+    <li><a href="/rsvp/{{ event.id }}/{{ question.id }}/{{ guest_val }}/answeressay">{{ question.name }}</a></li>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    <p>No Question to Answer</p>
+    {% endif %}
+    {% if fin_list %}
+    <h2>Question Finished:</h2>
+    {% for question in fin_list %}
+    {% if question.multi is True %}
+    {% if question.expired is False %}
+    <li><a href="/rsvp/{{ event.id }}/{{ question.id }}/{{ guest_val }}/question_detail">{{ question.name }}</a></li>
+    {% endif %}
+    {% else %}
+    {% if question.expired is False %}
+    <li><a href="/rsvp/{{ event.id }}/{{ question.id }}/{{ guest_val }}/answeressay">{{ question.name }}</a></li>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+  </ul>
+
+</div>
+{% endblock %}
+

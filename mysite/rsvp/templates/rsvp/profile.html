@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Event</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<h2>Owner</h2>
+User: {{ user.username }}
+<h2>Invited event</h2>
+{% for event in invite_events %}
+<p>{{ event.event_name }}</p>
+<p>{{ event.event_content }}</p>
+<a href="/rsvp/{{ event.id }}/accept_invite"><button>accept</button></a>
+{% endfor %}
+<br>
+<h2>Event as owner</h2>
+{% for event in owner_events %}
+<form method="post">
+{% csrf_token %}
+<p>{{ event.event_name }}<input type = "submit" name={{ event.pk }} value="DELETE"></p>
+</form>
+<button onclick="{location.href='/rsvp/{{ event.id }}'}">add user</button>
+<button onclick="{location.href='/rsvp/{{ event.id }}/event_detail'}">event detail / edit question</button> 
+<button onclick="{location.href='/rsvp/{{ event.id }}/question'}">add question</button>
+<button onclick="{location.href='/rsvp/{{ event.id }}/event_edit'}">event edit</button>
+{% endfor %}
+<br>
+<h2>Event as vendor</h2>
+{% for event in vendor_events %}
+<p>{{ event.event_name }}</p>
+<button onclick="{location.href='/rsvp/{{ event.id }}/expire_question'}">question answer / expire question</button> 
+{% endfor %}
+<br>
+<h2>Event as guest</h2>
+{% for event in guest_events %}
+<p>{{ event.event_name }}</p>
+<button onclick="{location.href='/rsvp/{{ event.id }}/view_event_detail'}">view event detail</button> 
+<button onclick="{location.href='/rsvp/{{ event.id }}/answer_detail'}">view your question answer</button> 
+<button onclick="{location.href='/rsvp/{{ event.id }}/0/question_index'}">do question</button>
+<button onclick="{location.href='/rsvp/{{ event.id }}/1/question_index'}">do question for your guest</button>
+{% endfor %}
+<div style="left: 1000px; position: absolute; top: 100px;">
+  <button onclick="{location.href='../add_event'}">Click to add event</button>
+  
+</div>
+</div>
+{% endblock %}
+

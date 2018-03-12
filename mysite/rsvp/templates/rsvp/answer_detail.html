@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Event Detail</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <h2>event question</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for key,value in answersheet.items %}
+    <h3>{{ key.name }}</h3>
+    <p>{{ value }}</p>
+    {% endfor %}
+  </form>
+</div>
+</div>
+{% endblock %}

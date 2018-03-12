@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Answers_Sheet </title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <h2>{{ guest }}'s Answers</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for key,value in answersheet.items %}
+    <h3>{{ key.name }}</h3>
+    <p>{{ value }}</p>
+    {% endfor %}
+  </form>
+  {% if guestanswersheet %}
+  <h2>{{ guest }}'s Guest's Answers</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for key,value in guestanswersheet.items %}
+    <h3>{{ key.name }}</h3>
+    <p>{{ value }}</p>
+    {% endfor %}
+  </form>
+  {% else %}
+  <h2>No Guest Invited by {{ guest }}</h2>
+  {% endif %}
+</div>
+</div>
+{% endblock %}

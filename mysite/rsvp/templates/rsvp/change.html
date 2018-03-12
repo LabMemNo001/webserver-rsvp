@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <form method="post" action="">
+      {% csrf_token %}
+      <label for="id_name">QUESTION:</label> {{ question.name }}
+      {{ choice.as_p }}
+      {{ error }}
+      <p>
+	<input type = "submit" name="add" value="ADD A CHOICE"/>
+	<input type = "submit" name="del" value="DELETE A CHOICE"/>
+      </p>
+      <input type = "submit" name="sub" value="SUBMIT"/>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Event Detail</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <h2>Event name: {{ event.event_name }}</h2>
+  <p>Event content: {{ event.event_content }}</p>
+  <h2>Event question</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for key,value in quizsheet.items %}
+    <h4> &ensp;<a href="/rsvp/{{ event_id }}/{{ key.pk }}/change">{{ key.name }}</a>  <input type = "submit" name={{ key.pk }} value="DELETE"/></h4>
+    {% for v in value %}
+    &ensp;&ensp;&#149;&ensp;{{ v.choice_text }}<br>
+    {% endfor %}
+    {% endfor %}
+  </form>
+    <br><br>
+  <h2>Guests</h2>
+  {% for g in guest %}
+  <a href="/rsvp/{{ event_id }}/{{ g.pk }}/answer_sheet">{{ g.username }}</a><br>
+  {% endfor %}
+</div>
+{% endblock %}
+
+
